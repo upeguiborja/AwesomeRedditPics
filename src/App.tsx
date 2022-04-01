@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, useColorScheme, View, Text} from 'react-native';
+import {useColorScheme, View, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -18,24 +18,16 @@ function HomeScreen() {
 }
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaView>
-        <NavigationContainer>
-          <Tab.Navigator>
-            <Tab.Screen name="Top" component={SubredditView} />
-            <Tab.Screen name="New" component={HomeScreen} />
-            <Tab.Screen name="Hot" component={HomeScreen} />
-            <Tab.Screen name="Controversial" component={HomeScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Top" component={SubredditView} />
+          <Tab.Screen name="New" component={HomeScreen} />
+          <Tab.Screen name="Hot" component={HomeScreen} />
+          <Tab.Screen name="Controversial" component={HomeScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </QueryClientProvider>
   );
 };
