@@ -17,19 +17,11 @@ if (__DEV__) {
 
 export type StackNavigatorParamsList = {
   Home: undefined;
-  Browser: undefined;
+  Browser: {uri: string};
 };
 
 const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 const Tab = createMaterialTopTabNavigator();
-
-function HomeScreen() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
 
 const HomeTabNavigator: React.FC = () => {
   return (
@@ -57,7 +49,7 @@ const App = () => {
           }}>
           <Stack.Screen name="Home" component={HomeTabNavigator} />
           <Stack.Screen
-            options={{headerShown: true, headerTitle: 'Hello'}}
+            options={{headerShown: true, headerTitle: 'Reddit - Browser'}}
             name="Browser"
             component={WebView}
           />

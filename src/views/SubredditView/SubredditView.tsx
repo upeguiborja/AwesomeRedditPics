@@ -21,6 +21,7 @@ const renderPost = (info: ListRenderItemInfo<Link>) => (
     author={info.item.author}
     created_utc={info.item.created_utc}
     preview={info.item.preview}
+    permalink={info.item.permalink}
   />
 );
 

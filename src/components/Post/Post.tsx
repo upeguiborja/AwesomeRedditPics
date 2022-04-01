@@ -9,6 +9,7 @@ import {PostHeader, PostHeaderProps} from './PostHeader';
 
 export type PostProps = PostHeaderProps & {
   preview?: LinkPreview;
+  permalink?: string;
 };
 
 export const Post: React.FC<PostProps> = ({
@@ -17,11 +18,13 @@ export const Post: React.FC<PostProps> = ({
   created_utc,
   style,
   preview,
+  permalink,
 }) => {
   const navigation = useNavigation();
 
   function onPress() {
-    navigation.navigate('Browser', {});
+    const uri = permalink && `https://reddit.com${permalink}`;
+    navigation.navigate('Browser', {uri: uri});
   }
   return (
     <TouchableHighlight
