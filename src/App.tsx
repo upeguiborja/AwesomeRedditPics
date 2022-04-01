@@ -9,6 +9,12 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 const Tab = createMaterialTopTabNavigator();
 const queryClient = new QueryClient();
 
+if (__DEV__) {
+  import('react-query-native-devtools').then(({addPlugin}) => {
+    addPlugin({queryClient});
+  });
+}
+
 function HomeScreen() {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -25,7 +31,6 @@ const App = () => {
           <Tab.Screen name="Top" component={SubredditView} />
           <Tab.Screen name="New" component={HomeScreen} />
           <Tab.Screen name="Hot" component={HomeScreen} />
-          <Tab.Screen name="Controversial" component={HomeScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

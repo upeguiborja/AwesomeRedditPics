@@ -9,9 +9,10 @@ export const Post: React.FC<{}> = () => {
       <PostHeader style={{paddingBottom: 10}} />
       <Image
         source={{
-          height: 100,
+          height: 500,
           uri: 'https://preview.redd.it/3g1zut8i9pq81.jpg?width=640&crop=smart&auto=webp&s=ec568831ed13b9c3dbcf42f6ae810417d8633e82',
         }}
+        resizeMode="contain"
       />
       <PostActions />
     </View>
