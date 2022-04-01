@@ -5,15 +5,15 @@ export enum Listings {
   Hot = 'hot',
 }
 
-type Thing<T = Object> = {
+export type Thing<T = Object> = {
   id?: string;
   name?: string;
   kind: string;
   data: T;
 };
 
-type Link = {
-  preview?: Object;
+export type Link = {
+  preview?: LinkPreview;
   title: string;
   author: string;
   score: number;
@@ -22,11 +22,27 @@ type Link = {
   created_utc: number;
 };
 
-type LinkThing = Thing<Link> & {
+export type LinkPreview = {
+  enabled: boolean;
+  images: Array<{
+    id: string;
+    resolutions: Image[];
+    source: Image;
+    variants: Object;
+  }>;
+};
+
+export type Image = {
+  height: number;
+  width: number;
+  url: string;
+};
+
+export type LinkThing = Thing<Link> & {
   kind: 't3';
 };
 
-type ListingResponse<T extends Thing> = {
+export type ListingResponse<T extends Thing> = {
   kind: 'Listing';
   data: {
     after: string | null;
@@ -37,26 +53,26 @@ type ListingResponse<T extends Thing> = {
   };
 };
 
-const parseListingResponseChild = () => {};
+const parseLinkThing = (linkThing: LinkThing) => ({
+  preview: linkThing.data.preview,
+  title: linkThing.data.title,
+  author: linkThing.data.author,
+  score: linkThing.data.score,
+  num_comments: linkThing.data.num_comments,
+  created: linkThing.data.created,
+  created_utc: linkThing.data.created_utc,
+});
 
-export const getSubredditLinksListing: QueryFunction = async ({queryKey}) => {
-  const [_, {subreddit, listing}] = queryKey as [
-    any,
-    {subreddit: string; listing: Listings},
-  ];
+export const getSubredditLinksListing: QueryFunction<
+  Link[],
+  [any, {subreddit: string; listing: Listings}]
+> = async ({queryKey}) => {
+  const [_, {subreddit, listing}] = queryKey;
   return axios
     .get<ListingResponse<LinkThing>>(
       `https://api.reddit.com/r/${subreddit}/${listing}.json?raw_json=1`,
     )
     .then(response => {
-      return response.data.data?.children?.map(link => ({
-        preview: link.data.preview,
-        title: link.data.title,
-        author: link.data.author,
-        score: link.data.score,
-        num_comments: link.data.num_comments,
-        created: link.data.created,
-        created_utc: link.data.created_utc,
-      }));
+      return response.data.data?.children?.map(parseLinkThing);
     });
 };

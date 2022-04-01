@@ -2,15 +2,25 @@ import React from 'react';
 import {View, ViewProps} from 'react-native';
 import {AwesomeText} from '../AwesomeText';
 
-export const PostHeader: React.FC<ViewProps> = ({style}) => {
+export type PostHeaderProps = ViewProps & {
+  title: string;
+  author: string;
+  created: number;
+};
+
+export const PostHeader: React.FC<PostHeaderProps> = ({
+  title,
+  author,
+  style,
+  ...props
+}) => {
   return (
-    <View style={[{paddingHorizontal: 10}, style]}>
+    <View {...props} style={[{paddingHorizontal: 10}, style]}>
       <AwesomeText style={{marginBottom: 10, color: '#798389'}}>
-        u/onewordpoet • 13h
+        u/{author} • 13h
       </AwesomeText>
       <AwesomeText style={{fontWeight: 'bold', fontSize: 18}}>
-        I just went outside to do some watercolor painting at the park. This is
-        what I ended up with (oc)
+        {title}
       </AwesomeText>
     </View>
   );

@@ -1,20 +1,42 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, TouchableHighlight} from 'react-native';
+import {LinkPreview} from '../../api/getSubredditLinksListing';
 import {PostActions} from './PostActions';
-import {PostHeader} from './PostHeader';
+import {PostHeader, PostHeaderProps} from './PostHeader';
 
-export const Post: React.FC<{}> = () => {
+export type PostProps = PostHeaderProps & {
+  preview?: LinkPreview;
+};
+
+export const Post: React.FC<PostProps> = ({
+  title,
+  author,
+  created,
+  style,
+  preview,
+}) => {
   return (
-    <View style={{backgroundColor: '#ffffff'}}>
-      <PostHeader style={{paddingBottom: 10}} />
-      <Image
-        source={{
-          height: 500,
-          uri: 'https://preview.redd.it/3g1zut8i9pq81.jpg?width=640&crop=smart&auto=webp&s=ec568831ed13b9c3dbcf42f6ae810417d8633e82',
-        }}
-        resizeMode="contain"
-      />
-      <PostActions />
-    </View>
+    <TouchableHighlight
+      activeOpacity={0.6}
+      underlayColor={'#DDDDDD'}
+      onPress={() => {}}>
+      <View style={[{backgroundColor: '#ffffff'}, style]}>
+        <PostHeader
+          title={title}
+          author={author}
+          created={created}
+          style={{paddingBottom: 10}}
+        />
+        {preview?.enabled && (
+          <Image
+            source={{
+              uri: preview?.images?.[0]?.resolutions?.[2]?.url,
+              height: preview?.images?.[0]?.resolutions?.[2]?.height,
+            }}
+          />
+        )}
+        <PostActions />
+      </View>
+    </TouchableHighlight>
   );
 };
