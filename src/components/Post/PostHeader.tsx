@@ -1,25 +1,33 @@
 import React from 'react';
 import {View, ViewProps} from 'react-native';
+import {friendlyTimedelta} from '../../utils/friendlyTimedelta';
 import {AwesomeText} from '../AwesomeText';
 
 export type PostHeaderProps = ViewProps & {
   title: string;
   author: string;
-  created: number;
+  created_utc: number;
 };
 
 export const PostHeader: React.FC<PostHeaderProps> = ({
   title,
   author,
   style,
+  created_utc,
   ...props
 }) => {
   return (
     <View {...props} style={[{paddingHorizontal: 10}, style]}>
-      <AwesomeText style={{marginBottom: 10, color: '#798389'}}>
-        u/{author} • 13h
+      <AwesomeText
+        style={{
+          height: 30,
+          color: '#798389',
+          fontSize: 12,
+          textAlignVertical: 'center',
+        }}>
+        u/{author} • {friendlyTimedelta(Date.now() / 1000 - created_utc)}
       </AwesomeText>
-      <AwesomeText style={{fontWeight: 'bold', fontSize: 18}}>
+      <AwesomeText style={{fontWeight: '500', fontSize: 18}}>
         {title}
       </AwesomeText>
     </View>

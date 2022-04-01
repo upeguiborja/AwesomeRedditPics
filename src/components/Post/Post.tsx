@@ -11,7 +11,7 @@ export type PostProps = PostHeaderProps & {
 export const Post: React.FC<PostProps> = ({
   title,
   author,
-  created,
+  created_utc,
   style,
   preview,
 }) => {
@@ -24,7 +24,7 @@ export const Post: React.FC<PostProps> = ({
         <PostHeader
           title={title}
           author={author}
-          created={created}
+          created_utc={created_utc}
           style={{paddingBottom: 10}}
         />
         {preview?.enabled && (

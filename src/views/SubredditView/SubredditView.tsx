@@ -13,7 +13,7 @@ const renderPost = (info: ListRenderItemInfo<Link>) => (
     style={{marginTop: 10}}
     title={info.item.title}
     author={info.item.author}
-    created={info.item.created}
+    created_utc={info.item.created_utc}
     preview={info.item.preview}
   />
 );

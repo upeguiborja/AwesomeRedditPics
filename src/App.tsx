@@ -1,9 +1,8 @@
 import React from 'react';
-import {useColorScheme, View, Text} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {SubredditView} from './views/SubredditView/SubredditView';
+import {SubredditView} from './views/SubredditView';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
 const Tab = createMaterialTopTabNavigator();
