@@ -52,11 +52,12 @@ export const SubredditView: React.FC<SubredditViewProps> = ({listing}) => {
       ) : (
         data && (
           <VirtualizedList
-            data={data.map((item, index) => ({...item, key: index}))}
+            data={data}
             initialNumToRender={5}
             renderItem={renderPost}
             getItemCount={() => 25}
             getItem={(_, index) => data[index]}
+            keyExtractor={(_, index) => `${index}`}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
