@@ -1,6 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {View, Image, TouchableHighlight} from 'react-native';
 import {LinkPreview} from '../../api/getSubredditLinksListing';
+import {StackNavigatorParamsList} from '../../App';
 import {PostFooter} from './PostFooter';
 import {PostHeader, PostHeaderProps} from './PostHeader';
 
@@ -15,11 +18,16 @@ export const Post: React.FC<PostProps> = ({
   style,
   preview,
 }) => {
+  const navigation = useNavigation();
+
+  function onPress() {
+    navigation.navigate('Browser', {});
+  }
   return (
     <TouchableHighlight
       activeOpacity={0.6}
       underlayColor={'#DDDDDD'}
-      onPress={() => {}}>
+      onPress={onPress}>
       <View style={[{backgroundColor: '#ffffff'}, style]}>
         <PostHeader
           title={title}
