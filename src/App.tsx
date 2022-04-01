@@ -49,7 +49,7 @@ const App = () => {
           }}>
           <Stack.Screen name="Home" component={HomeTabNavigator} />
           <Stack.Screen
-            options={{headerShown: true, headerTitle: 'Reddit - Browser'}}
+            options={{headerShown: true, headerTitle: 'Reddit'}}
             name="Browser"
             component={WebView}
           />
