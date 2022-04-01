@@ -1,6 +1,12 @@
-import React from 'react';
-import {ListRenderItemInfo, View, VirtualizedList} from 'react-native';
-import {useQuery} from 'react-query';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  ListRenderItemInfo,
+  RefreshControl,
+  View,
+  VirtualizedList,
+} from 'react-native';
+import {useQuery, useQueryClient} from 'react-query';
 import {
   getSubredditLinksListing,
   Listings,
@@ -18,22 +24,44 @@ const renderPost = (info: ListRenderItemInfo<Link>) => (
   />
 );
 
-export const SubredditView: React.FC = () => {
-  const {data} = useQuery(
-    ['listing', {subreddit: 'pics', listing: Listings.Hot}],
+export type SubredditViewProps = {
+  listing: Listings;
+};
+
+export const SubredditView: React.FC<SubredditViewProps> = ({listing}) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const {data, isLoading} = useQuery(
+    ['listing', {subreddit: 'pics', listing: listing}],
     getSubredditLinksListing,
+    {onSuccess: () => setRefreshing(false)},
   );
+  const queryClient = useQueryClient();
+
+  function onRefresh() {
+    setRefreshing(true);
+    queryClient.invalidateQueries([
+      'listing',
+      {subreddit: 'pics', listing: listing},
+    ]);
+  }
 
   return (
     <View>
-      {data && (
-        <VirtualizedList
-          data={data.map((item, index) => ({...item, key: index}))}
-          initialNumToRender={5}
-          renderItem={renderPost}
-          getItemCount={() => 25}
-          getItem={(_, index) => data[index]}
-        />
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        data && (
+          <VirtualizedList
+            data={data.map((item, index) => ({...item, key: index}))}
+            initialNumToRender={5}
+            renderItem={renderPost}
+            getItemCount={() => 25}
+            getItem={(_, index) => data[index]}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        )
       )}
     </View>
   );

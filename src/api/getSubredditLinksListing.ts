@@ -3,6 +3,8 @@ import {QueryFunction} from 'react-query';
 
 export enum Listings {
   Hot = 'hot',
+  New = 'new',
+  Top = 'top',
 }
 
 export type Thing<T = Object> = {

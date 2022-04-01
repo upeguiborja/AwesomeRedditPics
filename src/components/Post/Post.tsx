@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, TouchableHighlight} from 'react-native';
 import {LinkPreview} from '../../api/getSubredditLinksListing';
-import {PostActions} from './PostActions';
+import {PostFooter} from './PostFooter';
 import {PostHeader, PostHeaderProps} from './PostHeader';
 
 export type PostProps = PostHeaderProps & {
@@ -35,7 +35,7 @@ export const Post: React.FC<PostProps> = ({
             }}
           />
         )}
-        <PostActions />
+        <PostFooter />
       </View>
     </TouchableHighlight>
   );

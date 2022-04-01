@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ViewProps} from 'react-native';
-import {friendlyTimedelta} from '../../utils/friendlyTimedelta';
+import {friendlyTimedelta} from '../../utils';
 import {AwesomeText} from '../AwesomeText';
 
 export type PostHeaderProps = ViewProps & {
