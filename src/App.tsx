@@ -1,32 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, useColorScheme, View, Text} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {ImagePost} from './components';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { ImagePost } from './components';
+const Tab = createMaterialTopTabNavigator();
+
+function HomeScreen() {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,29 +23,13 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-     <ImagePost />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home2" component={HomeScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
