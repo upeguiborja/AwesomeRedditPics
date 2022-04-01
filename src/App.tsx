@@ -3,9 +3,11 @@ import {SafeAreaView, useColorScheme, View, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {ImagePost} from './components';
+import {SubredditView} from './views/SubredditView/SubredditView';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 const Tab = createMaterialTopTabNavigator();
+const queryClient = new QueryClient();
 
 function HomeScreen() {
   return (
@@ -23,12 +25,18 @@ const App = () => {
   };
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Home2" component={HomeScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaView>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen name="Top" component={SubredditView} />
+            <Tab.Screen name="New" component={HomeScreen} />
+            <Tab.Screen name="Hot" component={HomeScreen} />
+            <Tab.Screen name="Controversial" component={HomeScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </QueryClientProvider>
   );
 };
 
