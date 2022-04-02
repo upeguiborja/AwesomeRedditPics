@@ -40,9 +40,18 @@ export const SubredditView: React.FC<SubredditViewProps> = ({listing}) => {
   }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       {isLoading ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator
+          size="large"
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}
+        />
       ) : (
         data && (
           <VirtualizedList
