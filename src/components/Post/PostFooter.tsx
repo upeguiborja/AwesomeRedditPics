@@ -18,14 +18,20 @@ const Icon: React.FC<FontAwesomeIconProps> = ({style, ...props}) => {
   );
 };
 
-export type PostFooterProps = {num_comments: number; score: number};
+export type PostFooterProps = {
+  num_comments: number;
+  ups: number;
+  downs: number;
+};
 
 export const PostFooter: React.FC<PostFooterProps> = ({
   num_comments,
-  score,
+  ups,
+  downs,
 }) => {
   const friendlyNumComments = friendlyNumber(num_comments);
-  const friendlyScore = friendlyNumber(score);
+  const friendlyUps = friendlyNumber(ups);
+  const friendlyDowns = friendlyNumber(downs);
 
   return (
     <View
@@ -36,9 +42,11 @@ export const PostFooter: React.FC<PostFooterProps> = ({
         alignItems: 'center',
       }}>
       <Icon icon={['far', 'message']} />
-      <AwesomeText>{friendlyNumComments}</AwesomeText>
-      <Icon icon="award" />
-      <AwesomeText>{friendlyScore}</AwesomeText>
+      <AwesomeText style={{marginRight: 15}}>{friendlyNumComments}</AwesomeText>
+      <Icon icon="arrow-circle-up" />
+      <AwesomeText style={{marginRight: 15}}>{friendlyUps}</AwesomeText>
+      <Icon icon="arrow-circle-down" />
+      <AwesomeText style={{marginRight: 15}}>{friendlyDowns}</AwesomeText>
     </View>
   );
 };

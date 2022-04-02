@@ -23,6 +23,8 @@ export type Link = {
   created: number;
   created_utc: number;
   permalink?: string;
+  ups: number;
+  downs: number;
 };
 
 export type LinkPreview = {
@@ -65,6 +67,8 @@ const parseLinkThing = (linkThing: LinkThing) => ({
   created: linkThing.data.created,
   created_utc: linkThing.data.created_utc,
   permalink: linkThing.data.permalink,
+  ups: linkThing.data.ups,
+  downs: linkThing.data.downs,
 });
 
 export const getSubredditLinksListing: QueryFunction<

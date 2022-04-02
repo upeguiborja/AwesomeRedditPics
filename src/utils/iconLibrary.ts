@@ -1,9 +1,10 @@
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {
-  faAward,
-  faComment,
-  faComments,
+  faArrowCircleUp,
+  faArrowCircleDown,
 } from '@fortawesome/free-solid-svg-icons';
 import {faMessage} from '@fortawesome/free-regular-svg-icons';
 
-library.add(faMessage, faComment, faComments, faAward);
+export function setupIconLibrary() {
+  library.add(faMessage, faArrowCircleUp, faArrowCircleDown);
+}

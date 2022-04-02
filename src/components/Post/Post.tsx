@@ -21,13 +21,14 @@ export const Post: React.FC<PostProps> = ({
   preview,
   permalink,
   num_comments,
-  score,
+  ups,
+  downs,
 }) => {
   const navigation = useNavigation();
 
   function onPress() {
     const uri = permalink && `https://reddit.com${permalink}`;
-    navigation.navigate('Browser', {uri: uri});
+    navigation.navigate('Browser' as never, {uri: uri} as never); // TODO: Find the correct way to type this
   }
   return (
     <TouchableHighlight
@@ -49,7 +50,7 @@ export const Post: React.FC<PostProps> = ({
             }}
           />
         )}
-        <PostFooter num_comments={num_comments} score={score} />
+        <PostFooter num_comments={num_comments} ups={ups} downs={downs} />
       </View>
     </TouchableHighlight>
   );

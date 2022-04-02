@@ -5,9 +5,10 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SubredditView, WebView} from './views';
 import {Listings} from './api/getSubredditLinksListing';
-import './utils/iconLibrary';
+import {setupIconLibrary} from './utils';
 
 const queryClient = new QueryClient();
+setupIconLibrary();
 
 if (__DEV__) {
   import('react-query-native-devtools').then(({addPlugin}) => {
