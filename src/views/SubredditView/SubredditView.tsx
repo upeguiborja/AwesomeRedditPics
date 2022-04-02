@@ -15,14 +15,7 @@ import {
 import {Post} from '../../components';
 
 const renderPost = (info: ListRenderItemInfo<Link>) => (
-  <Post
-    style={{marginTop: 10}}
-    title={info.item.title}
-    author={info.item.author}
-    created_utc={info.item.created_utc}
-    preview={info.item.preview}
-    permalink={info.item.permalink}
-  />
+  <Post style={{marginTop: 10}} {...info.item} />
 );
 
 export type SubredditViewProps = {

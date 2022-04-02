@@ -4,13 +4,14 @@ import React from 'react';
 import {View, Image, TouchableHighlight} from 'react-native';
 import {LinkPreview} from '../../api/getSubredditLinksListing';
 import {StackNavigatorParamsList} from '../../App';
-import {PostFooter} from './PostFooter';
+import {PostFooter, PostFooterProps} from './PostFooter';
 import {PostHeader, PostHeaderProps} from './PostHeader';
 
-export type PostProps = PostHeaderProps & {
-  preview?: LinkPreview;
-  permalink?: string;
-};
+export type PostProps = PostHeaderProps &
+  PostFooterProps & {
+    preview?: LinkPreview;
+    permalink?: string;
+  };
 
 export const Post: React.FC<PostProps> = ({
   title,
@@ -19,6 +20,8 @@ export const Post: React.FC<PostProps> = ({
   style,
   preview,
   permalink,
+  num_comments,
+  score,
 }) => {
   const navigation = useNavigation();
 
@@ -46,7 +49,7 @@ export const Post: React.FC<PostProps> = ({
             }}
           />
         )}
-        <PostFooter />
+        <PostFooter num_comments={num_comments} score={score} />
       </View>
     </TouchableHighlight>
   );
